@@ -65,6 +65,7 @@ class ThemeManager():
         Returns:
         str: The adjusted hex color string.
         """
+        
         # Remove the hash symbol if present
         hex_color = hex_color.lstrip('#')
         
