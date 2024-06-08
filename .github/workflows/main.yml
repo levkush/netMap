@@ -7,6 +7,9 @@ jobs:
   pyinstaller-build:
     runs-on: ubuntu-latest
     steps:
+      - name: Install libgirepository
+        run: sudo apt-get install -y libgirepository-1.0-1
+
       - name: Create Executable
         uses: sayyid5416/pyinstaller@v1
         with:
