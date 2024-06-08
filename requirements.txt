@@ -1,0 +1,5 @@
+PyGObject
+xrcat
+pycairo
+PyYAML
+requests

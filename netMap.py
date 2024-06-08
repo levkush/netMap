@@ -3,7 +3,6 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GLib
 import random
 import math
-from xrcat import xrcat
 import socket
 import subprocess
 import cairo
