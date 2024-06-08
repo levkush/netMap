@@ -6,5 +6,5 @@ A replica of Netmap v1.7 from [Hacknet](https://store.steampowered.com/app/36545
 * Change color theme
 
 ## Configuration
-Themes are configured in ~/.config/netMap/config.yml:
-Nodes are located in ~/.config/netMap/nodes.yml
+* Configuration file is in ~/.config/netMap/config.yml
+* Nodes are located in ~/.config/netMap/nodes.yml
