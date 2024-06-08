@@ -1,5 +1,5 @@
 # Netmap
-A replica of Netmap v1.7 from (Hacknet)[https://store.steampowered.com/app/365450/hacknet/]
+A replica of Netmap v1.7 from [Hacknet](https://store.steampowered.com/app/365450/hacknet/)
 
 ## Features
 * Parsing SSH known_hosts file
