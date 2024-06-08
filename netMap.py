@@ -15,66 +15,12 @@ import string
 from datetime import datetime
 import requests
 import json
+from ResourceManager import ThemeManager
 
 def quoted_presenter(dumper, data):
     return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='"')
 
 yaml.add_representer(str, quoted_presenter)
-
-class ThemeManager():
-    def __init__(self):
-        xrcat.updateResources()
-        self.home_color = xrcat.getResource("netMap.home_node_color")
-        self.base_color = xrcat.getResource("netMap.node_color")
-        self.bg_color = xrcat.getResource("netMap.bg_color")
-        self.draw_outer_circle = xrcat.getResource("netMap.draw_outer_circle")
-
-        self.font = "Consolas"
-        self.font_weight = "Bold"
-        self.font_size = 14
-
-        self.font_slant = cairo.FONT_SLANT_NORMAL
-
-        if self.font_weight.lower().strip() == "bold":
-            self.font_weight = cairo.FONT_WEIGHT_BOLD
-        else:
-            self.font_weight = cairo.FONT_SLANT_ITALIC
-
-        
-    
-    def adjust_brightness(self, hex_color, coefficient):
-        """
-        Adjust the brightness of a hex color by a given coefficient.
-        
-        Parameters:
-        hex_color (str): The hex color string (e.g., '#RRGGBB').
-        coefficient (float): The brightness adjustment coefficient (e.g., 1.5 for brighter, 0.5 for darker).
-        
-        Returns:
-        str: The adjusted hex color string.
-        """
-        # Remove the hash symbol if present
-        hex_color = hex_color.lstrip('#')
-        
-        # Convert hex to RGB
-        r = int(hex_color[0:2], 16)
-        g = int(hex_color[2:4], 16)
-        b = int(hex_color[4:6], 16)
-        
-        # Adjust brightness
-        r = min(255, max(0, int(r * coefficient)))
-        g = min(255, max(0, int(g * coefficient)))
-        b = min(255, max(0, int(b * coefficient)))
-        
-        # Convert RGB back to hex
-        adjusted_hex = f'#{r:02x}{g:02x}{b:02x}'
-        
-        return adjusted_hex
-    
-    def hex_to_rgb(self, hex_color):
-        hex_color = hex_color.lstrip('#')
-        return tuple(int(hex_color[i:i+2], 16) / 255.0 for i in (0, 2, 4))
-
 
 class NodeVisualizer(Gtk.Window):
     def __init__(self, node_size=5):
