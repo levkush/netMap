@@ -15,6 +15,7 @@ from datetime import datetime
 import requests
 import json
 from ResourceManager import ThemeManager
+import sys
 
 def quoted_presenter(dumper, data):
     return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='"')
@@ -26,6 +27,10 @@ class NodeVisualizer(Gtk.Window):
         Gtk.Window.__init__(self, title="netMap v1.7")
 
         self.theme = ThemeManager()
+
+        if len(sys.argv) > 1 and self.theme.terminal is None:
+            self.theme.terminal = sys.argv[1]
+
         self.connect("size_allocate", self.on_size_allocate)
         self.connect("destroy", self.unload)
 

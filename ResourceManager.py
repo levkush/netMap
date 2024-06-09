@@ -9,6 +9,8 @@ class ThemeManager():
     def __init__(self):
         config = self.load_config()
 
+        self.terminal = config.get("Terminal")
+
         self.home_color = config.get("Home Node Color")
         self.base_color = config.get("Node Color")
         self.bg_color = config.get("Background Color")
@@ -28,6 +30,7 @@ class ThemeManager():
     def generate_default_config(self):
         home = os.path.expanduser('~')
         config = {
+            "Terminal": None,
             "Background Color": "#070e14",
             "Node Color": "#00a9ef",
             "Home Node Color": "#81f171",

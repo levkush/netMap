@@ -1,6 +1,7 @@
 import math, subprocess, random
 from datetime import datetime
 import threading
+import sys
 
 class Node():
     def __init__(self, name, position, ip, node_size, themeManager, timestamp):
@@ -117,9 +118,13 @@ class Node():
 
         def _(): pass
 
+        if self.theme.terminal is None:
+            print("Please configure a terminal emulator in ~/.config/netMap/config.yml")
+            sys.exit()
+
         self.run_cmd(["bash", "-c", f"pkill ssh"], _)
 
-        self.run_cmd(["bash", "-c", f"i3-sensible-terminal /bin/bash -c 'ssh {ip} -p {port}' &>/dev/null"], self.unclick)
+        self.run_cmd(["bash", "-c", f"{self.theme.terminal} /bin/bash -c 'ssh {ip} -p {port}' &>/dev/null"], self.unclick)
 
     def draw_popup(self, x, y, painter):
         host = self.ip.replace("[", "").replace("]", "").split(":")
