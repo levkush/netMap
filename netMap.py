@@ -55,6 +55,18 @@ class NodeVisualizer(Gtk.Window):
         # Create a dictionary for nodes with positions, colors, and IPs
         self.nodes = []
 
+        # self.nodes.append(
+        #     Node.ClickedNode(
+        #         name="Test Node", 
+        #         position=self.gen_position(),
+        #         ip="1337.1337.1337.1337",
+        #         last_access_timestamp=None,
+        #         node_size=self.node_size,
+        #         themeManager=self.theme
+        #     )
+        # )
+
+
         # Make the background transparent
         self.set_app_paintable(True)
 
@@ -163,8 +175,34 @@ class NodeVisualizer(Gtk.Window):
         with open(config, 'w') as config_file:
             yaml.dump(nodes_dicted, config_file, sort_keys=False)
     
+    def is_up(self, host):
+        param = '-c'
+        response = os.system(f"ping {param} 1 {host}")
+
+        return response == 0
+    
     def on_tick(self):
+        clicked_node = None
+
         for node in self.nodes:
+            if isinstance(node, Node.ClickedNode):
+                if clicked_node != None:
+                    first_node_timestamp = clicked_node.last_access_timestamp
+                    if first_node_timestamp is None:
+                        clicked_node.unclick()
+                        clicked_node = node
+                        continue
+
+                    second_node_timestamp = node.last_access_timestamp
+
+                    if first_node_timestamp > second_node_timestamp:
+                        continue
+
+                    clicked_node.unclick()
+                    clicked_node = node
+                else:
+                    clicked_node = node
+
             node.tick()
         
         self.queue_draw()
