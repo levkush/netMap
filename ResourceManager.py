@@ -38,6 +38,8 @@ class ThemeManager():
             "Font Weight": "Bold"
         }
 
+        os.makedirs(f'{home}/.config/netMap', exist_ok=True)
+
         with open(f'{home}/.config/netMap/config.yml', "w") as cfg:
             yaml.dump(config, cfg, sort_keys=False)
         
